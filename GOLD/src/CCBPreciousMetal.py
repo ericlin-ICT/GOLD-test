@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from pandas import Series, DataFrame
 import pickle
 from numpy.core._mx_datetime_parser import datetime_from_string
+import numpy as np
 from PickleMetalData import PickleMetalData
 
 logging.basicConfig(level=logging.DEBUG,
@@ -120,6 +121,12 @@ class CCBPreciousMetal(object):
     '''
     df_realtime_pri = data.df_realtime_pri
     df_realtime_pri['new_pri'].plot()
+    today_open_pri = df_realtime_pri['new_pri'][0]
+    open_pri_array = np.zeros_like(df_realtime_pri['new_pri']) + today_open_pri
+    fivemin_avg = np.empty_like(open_pri_array)
+    plt.plot(open_pri_array,ls='--',c='r')
+    
+    logging.debug(open_pri_array)
     plt.show()
     pass
     
